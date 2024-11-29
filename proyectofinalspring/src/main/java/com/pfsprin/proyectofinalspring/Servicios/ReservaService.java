@@ -22,17 +22,17 @@ public class ReservaService {
 
     @Autowired
     private PlanRepository planRepository;
-
+    // Se obtienen todas las reservas
     public List<Reserva> obtenerTodas() {
         return reservaRepository.findAll();
     }
-
+    // Se obtiene la reserva por Id
     public Optional<Reserva> obtenerPorId(Integer id) {
         return reservaRepository.findById(id);
     }
-
+    // Se crea una reserva
     public Reserva crearReserva(Reserva reserva) {
-        // Verificar que el usuario exista
+
         Usuario usuario = usuarioRepository.findById(reserva.getUsuario().getId())
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
 
@@ -46,7 +46,7 @@ public class ReservaService {
 
         // Actualizar la cantidad actual del plan
         plan.setCantidadActual(plan.getCantidadActual() + 1);
-        planRepository.save(plan); // Aquí utilizamos la instancia inyectada
+        planRepository.save(plan);
 
         // Asignar usuario y plan a la reserva
         reserva.setUsuario(usuario);
@@ -55,7 +55,7 @@ public class ReservaService {
         return reservaRepository.save(reserva);
     }
 
-
+    // Se Elimina la reserva
     public Reserva actualizarReserva(Integer id, Reserva reservaDetalles) {
         Reserva reserva = reservaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));

@@ -16,28 +16,28 @@ public class PqrController {
 
     @Autowired
     private PqrService pqrService;
-
+    // Obtine las pqrs
     @GetMapping
     public List<Pqr> obtenerPqr() {
         return pqrService.obtenerTodas();
     }
-
+    // obtiene una pqrs de un usario por id
     @GetMapping("/{id}")
     public Optional<Pqr> obtenerPqrPorId(@PathVariable Integer id) {
         return pqrService.obtenerPorId(id);
     }
-
+    // crea la pqrs osea se envia
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Pqr crearPqr(@RequestBody Pqr pqr) {
         return pqrService.crearPqr(pqr);
     }
-
+    // se actualiza se responde
     @PutMapping("/{id}")
     public Pqr actualizarPqr(@PathVariable Integer id, @RequestBody Pqr pqr) {
         return pqrService.actualizarPqr(id, pqr);
     }
-
+    // Se Elimina la pqrs
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void eliminarPqr(@PathVariable Integer id) {

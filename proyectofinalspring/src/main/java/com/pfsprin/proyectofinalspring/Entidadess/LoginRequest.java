@@ -7,7 +7,6 @@ public class LoginRequest {
 
     // Getters y setters
 
-
     public String getCorreoElectronico() {
         return correoElectronico;
     }

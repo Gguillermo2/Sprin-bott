@@ -13,7 +13,7 @@ import java.io.IOException;
 
 import java.util.List;
 import java.util.Optional;
-
+// Coonexion de puertos de Vue  para que tome los  endpoints
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/usuarios")
@@ -21,42 +21,41 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
-
+    // se llama a toso los usuarios
     @GetMapping
     public List<Usuario> obtenerUsuarios() {
         return usuarioService.obtenerTodos();
     }
-
+    // se llama al uisurio por id
     @GetMapping("/{id}")
     public Optional<Usuario> obtenerUsuario(@PathVariable Integer id) {
         return Optional.ofNullable(usuarioService.obtenerPorId(id));
     }
-
+    // se registra un usuario
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Usuario crearUsuario(@RequestBody Usuario usuario) {
         return usuarioService.crearUsuario(usuario);
     }
-
+    // Se actualiza el Usuario por id
     @PutMapping("/{id}")
     public Usuario actualizarUsuario(@PathVariable Integer id, @RequestBody Usuario usuario) {
         return usuarioService.actualizarUsuario(id, usuario);
     }
-
-
+    // se elimina un usario
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarUsuario(@PathVariable Integer id) {
         usuarioService.eliminarUsuario(id);
         return ResponseEntity.noContent().build();
     }
-
-    @CrossOrigin(origins = "http://localhost:5173") // Especifica el origen permitido
+    // se llama el origen del inicio sesion para que pueda ingresar el usuario
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/iniciarSesion")
     public ResponseEntity<Usuario> iniciarSesion(@RequestBody LoginRequest loginRequest) {
         Usuario usuario = usuarioService.iniciarSesion(loginRequest.getCorreoElectronico(), loginRequest.getContraseña());
         return ResponseEntity.ok(usuario);
     }
-
+    // Se sube la imagen del perfil del Usuario
     @PostMapping("/{id}/imagen")
     public ResponseEntity<String> subirImagen(@PathVariable Integer id, @RequestParam("imagen") MultipartFile imagen) {
         try {

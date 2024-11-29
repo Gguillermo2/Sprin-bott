@@ -111,7 +111,7 @@ public class UsuarioService {
             directorio.mkdirs();
         }
 
-        // Guardar la imagen
+        //Se  Guardar la imagen
         String rutaImagen = rutaBase + imagen.getOriginalFilename();
         File archivoImagen = new File(rutaImagen);
         imagen.transferTo(archivoImagen);
